@@ -1,8 +1,10 @@
 package main;
 
+import java.util.ArrayList;
+
 public class Main {
 	
-	public class Sphere extends Shape {
+	public static class Sphere extends Shape {
 		private double radius;
 		
 		public Sphere(double radius) {
@@ -28,7 +30,7 @@ public class Main {
 		}
 	}
 	
-	public class Cylinder extends Shape {
+	public static class Cylinder extends Shape {
 		private double radius;
 		private double height;
 		
@@ -49,17 +51,59 @@ public class Main {
 		@Override
 		public String toString() {
 			return "Cylinder: \n" + 
-					"Radius: "+ radius + "\n" + 
+					"Radius: " + radius + "\n" + 
+					"Height: " + height + "\n" +
+					"Surface Area: " + String.format("%.2f", surface_area()) + "\n" + 
+					"Volume: " + String.format("%.2f", volume()) + "\n";
+		}
+	}
+	
+	public static class Cone extends Shape {
+		private double radius;
+		private double height;
+		
+		public Cone(double radius, double height) {
+			this.radius = radius;
+			this.height = height;
+		}
+		
+		@Override
+		public double surface_area() {
+			return Math.PI * radius * (radius + Math.sqrt(Math.pow(radius, 2) + Math.pow(height, 2)));
+		}
+		
+		@Override
+		public double volume() {
+			return Math.PI * Math.pow(radius, 2) * (height / 3);
+		}
+		
+		@Override
+		public String toString() {
+			return "Cone: \n" + 
+					"Radius: " + radius + "\n" + 
+					"Height: " + height + "\n" +
 					"Surface Area: " + String.format("%.2f", surface_area()) + "\n" + 
 					"Volume: " + String.format("%.2f", volume()) + "\n";
 		}
 	}
 	
 	
+	public static class ShapeArray {
+		public static void main(String[] args) {
+			
+			ArrayList <Shape> shapeArray = new ArrayList<>();
+			
+			Shape sphere = new Sphere(3.0);
+			shapeArray.add(sphere);
+			Shape cylinder = new Cylinder(5.5, 7.0);
+			shapeArray.add(cylinder);
+			Shape cone = new Cone(8.5, 4.0);
+			shapeArray.add(cone);
+			
+			for (int i = 0; i < shapeArray.size(); i ++) {
+				System.out.println(shapeArray.get(i));
+			}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		}
 	}
-
 }
